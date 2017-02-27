@@ -9,10 +9,20 @@
     <sprite>sprites\spr_circle</sprite>
   </sprites>
   <backgrounds name="background"/>
-  <paths name="paths"/>
+  <paths name="paths">
+    <path>paths\path0</path>
+    <path>paths\path1</path>
+  </paths>
+  <fonts name="fonts">
+    <font>fonts\fnt_level</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_circle</object>
+    <object>objects\obj_persistent</object>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_game</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>

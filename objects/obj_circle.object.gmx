@@ -7,7 +7,242 @@
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
-  <events/>
+  <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///INIT ALL AND START GAME
+//state of game
+state = 0
+
+//sprite size
+ssize = 64
+
+//ini name
+globalvar INI;
+INI = "OnTime.ini"
+
+//level
+ini_open(INI)
+level = ini_read_real("game", "level", 1)
+ini_close()
+level_max = 2
+
+//path
+path = level - 1
+sp = 4
+
+//wait for start
+alarm[0] = room_speed
+
+//goal
+goal = irandom(room_width / 3) + room_width / 3 - attempt * room_width / 150
+gsize = ssize * 1.2 + sp * 4
+
+//set start x &amp; y
+x = path_get_point_x(path, 0)
+y = path_get_point_y(path, 0)
+
+//for draw wall
+xmax = x
+xmin = x
+for(var i = 0; i &lt; path_get_number(path); i++)
+{
+    var xx = path_get_point_x(path, i)
+    if xx &gt; xmax
+        xmax = xx
+    if xx &lt; xmin
+        xmin = xx
+}
+
+//if win 
+win = false
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///START PATH
+path_start(path, sp, 0, true)
+state = 1
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//LOSE OR WIN
+state = 3
+path_end()
+
+if x &gt;= goal + ssize / 2 &amp;&amp; x &lt;= goal + gsize - ssize / 2
+{
+    if level &lt; level_max
+        level++
+    else
+        level = 1
+    ini_open(INI)
+    ini_write_real("game", "level", level)
+    ini_close()
+    win = true
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="8">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///RESTART LEVEL &amp; ADD ATTEMPTS
+state = 3
+if attempt &lt; 50
+    attempt++
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///DRAW PATH, PLAYER, ZONE OF WIN AND WALL
+//draw path
+draw_set_alpha(0.7)
+draw_set_color(c_dkgray)
+draw_path(path, 0, 0, true)
+
+//draw goal
+draw_set_color(c_red)
+draw_set_alpha(0.5)
+draw_rectangle(goal, 0, goal + gsize, room_height, false)
+
+//draw me
+draw_self()
+
+//draw wall
+if state &gt;= 1 &amp;&amp; state &lt;= 2
+{
+    draw_set_alpha(state - 1)
+    draw_set_color(make_color_rgb(240,240,240))
+    draw_rectangle(xmin + 80, 0, xmax - 80, room_height, false)
+    if state &lt; 2
+        state += 0.1
+}
+
+//draw smooth screen
+if state &gt;= 3 &amp;&amp; state &lt;= 5
+{
+    draw_set_alpha(state - 3)
+    draw_set_color(c_white)
+    draw_rectangle(0, 0, room_width, room_height, false)
+    
+    if state &lt; 5
+    {
+        if win
+            state += 0.01
+        else if state &lt; 4
+            state += 0.02
+        else
+            room_restart()
+    }
+    else // restart room
+    {
+        room_restart()
+        win = false // reset win
+    }
+    
+    // if win
+    if win
+    {   
+        draw_set_alpha(state - 3 + 0.4)
+        draw_set_color(c_dkgray)
+        draw_set_font(fnt_level)
+        draw_set_halign(fa_center)
+        draw_text(room_width / 2, room_height / 2 - 20, "Level " + string(level))
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>0</PhysicsObjectShape>
@@ -19,5 +254,8 @@
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>32,32</point>
+    <point>32,32</point>
+  </PhysicsShapePoints>
 </object>
