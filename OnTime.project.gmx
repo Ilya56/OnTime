@@ -12,6 +12,9 @@
   <paths name="paths">
     <path>paths\path0</path>
     <path>paths\path1</path>
+    <path>paths\path2</path>
+    <path>paths\path3</path>
+    <path>paths\path4</path>
   </paths>
   <fonts name="fonts">
     <font>fonts\fnt_level</font>

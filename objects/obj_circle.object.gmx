@@ -40,7 +40,7 @@ INI = "OnTime.ini"
 ini_open(INI)
 level = ini_read_real("game", "level", 1)
 ini_close()
-level_max = 2
+level_max = 5
 
 //path
 path = level - 1
