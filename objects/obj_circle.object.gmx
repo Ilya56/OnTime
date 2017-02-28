@@ -49,10 +49,6 @@ sp = 4
 //wait for start
 alarm[0] = room_speed
 
-//goal
-goal = irandom(room_width / 3) + room_width / 3 - attempt * room_width / 150
-gsize = ssize * 1.2 + sp * 4
-
 //set start x &amp; y
 x = path_get_point_x(path, 0)
 y = path_get_point_y(path, 0)
@@ -68,6 +64,11 @@ for(var i = 0; i &lt; path_get_number(path); i++)
     if xx &lt; xmin
         xmin = xx
 }
+
+//goal
+var w = xmax - xmin - 140 // 140 for draw path with wall (look in draw event)
+goal = irandom(w / 3) + w * 2 / 3 - attempt * w / 150
+gsize = ssize * 1.2 + sp * 4
 
 //if win 
 win = false
@@ -118,20 +119,23 @@ state = 1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//LOSE OR WIN
-state = 3
-path_end()
-
-if x &gt;= goal + ssize / 2 &amp;&amp; x &lt;= goal + gsize - ssize / 2
+            <string>///LOSE OR WIN
+if state &gt;= 1 &amp;&amp; state &lt;= 2
 {
-    if level &lt; level_max
-        level++
-    else
-        level = 1
-    ini_open(INI)
-    ini_write_real("game", "level", level)
-    ini_close()
-    win = true
+    state = 3
+    path_end()
+    
+    if x &gt;= goal + ssize / 2 &amp;&amp; x &lt;= goal + gsize - ssize / 2
+    {
+        if level &lt; level_max
+            level++
+        else
+            level = 1
+        ini_open(INI)
+        ini_write_real("game", "level", level)
+        ini_close()
+        win = true
+    }
 }
 </string>
           </argument>
@@ -200,7 +204,7 @@ if state &gt;= 1 &amp;&amp; state &lt;= 2
 {
     draw_set_alpha(state - 1)
     draw_set_color(make_color_rgb(240,240,240))
-    draw_rectangle(xmin + 80, 0, xmax - 80, room_height, false)
+    draw_rectangle(xmin + 120, 0, xmax - 20, room_height, false) // draw wall and path together
     if state &lt; 2
         state += 0.1
 }
@@ -234,7 +238,7 @@ if state &gt;= 3 &amp;&amp; state &lt;= 5
         draw_set_color(c_dkgray)
         draw_set_font(fnt_level)
         draw_set_halign(fa_center)
-        draw_text(room_width / 2, room_height / 2 - 20, "Level " + string(level))
+        draw_text(room_width / 2, room_height / 2 - 50, "Level " + string(level))
     }
 }
 </string>

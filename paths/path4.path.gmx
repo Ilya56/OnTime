@@ -6,16 +6,16 @@
   <hsnap>10</hsnap>
   <vsnap>10</vsnap>
   <points>
-    <point>40,40,100</point>
-    <point>100,100,100</point>
-    <point>180,130,100</point>
-    <point>250,100,100</point>
-    <point>340,30,100</point>
-    <point>440,100,100</point>
-    <point>510,130,100</point>
-    <point>590,100,100</point>
-    <point>700,20,100</point>
-    <point>790,100,100</point>
-    <point>870,130,100</point>
+    <point>40,220,100</point>
+    <point>100,280,100</point>
+    <point>180,310,100</point>
+    <point>250,280,100</point>
+    <point>340,220,100</point>
+    <point>440,280,100</point>
+    <point>520,310,100</point>
+    <point>600,280,100</point>
+    <point>700,220,100</point>
+    <point>790,280,100</point>
+    <point>870,310,100</point>
   </points>
 </path>
