@@ -68,7 +68,7 @@ for(var i = 0; i &lt; path_get_number(path); i++)
 //goal
 var w = xmax - xmin - 140 // 140 for draw path with wall (look in draw event)
 goal = irandom(w / 3) + w * 2 / 3 - attempt * w / 150
-gsize = ssize * 1.2 + sp * 4
+gsize = ssize * 1.2 + sp * 2 + attempt / 3
 
 //if win 
 win = false
@@ -123,6 +123,8 @@ state = 1
 if state &gt;= 1 &amp;&amp; state &lt;= 2
 {
     state = 3
+    if attempt &lt; 50
+        attempt++
     path_end()
     
     if x &gt;= goal + ssize / 2 &amp;&amp; x &lt;= goal + gsize - ssize / 2
