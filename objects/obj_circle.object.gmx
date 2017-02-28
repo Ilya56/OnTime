@@ -44,7 +44,6 @@ level_max = 5
 
 //path
 path = level - 1
-sp = 4
 
 //wait for start
 alarm[0] = room_speed
@@ -120,7 +119,7 @@ state = 1
           <argument>
             <kind>1</kind>
             <string>///LOSE OR WIN
-if state &gt;= 1 &amp;&amp; state &lt;= 2
+if state &gt;= 1 &amp;&amp; state &lt;= 2 &amp;&amp; !pause
 {
     state = 3
     if attempt &lt; 50
@@ -162,9 +161,12 @@ if state &gt;= 1 &amp;&amp; state &lt;= 2
           <argument>
             <kind>1</kind>
             <string>///RESTART LEVEL &amp; ADD ATTEMPTS
-state = 3
-if attempt &lt; 50
-    attempt++
+if !pause
+{
+    state = 3
+    if attempt &lt; 50
+        attempt++
+}
 </string>
           </argument>
         </arguments>
