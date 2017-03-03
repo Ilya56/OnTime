@@ -7,17 +7,13 @@
   <vsnap>10</vsnap>
   <points>
     <point>40,40,100</point>
-    <point>110,150,100</point>
-    <point>180,270,100</point>
+    <point>170,250,100</point>
     <point>250,540,100</point>
-    <point>320,270,100</point>
-    <point>390,150,100</point>
+    <point>350,250,100</point>
     <point>460,60,100</point>
-    <point>530,150,100</point>
-    <point>600,270,100</point>
+    <point>570,250,100</point>
     <point>670,540,100</point>
-    <point>740,270,100</point>
-    <point>810,150,100</point>
+    <point>770,250,100</point>
     <point>890,60,100</point>
   </points>
 </path>

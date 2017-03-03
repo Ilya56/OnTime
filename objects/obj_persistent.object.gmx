@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,8 +25,19 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>globalvar attempt;
+            <string>globalvar attempt, pause, sp, level_max;
 attempt = 0
+pause = false
+level_max = 7
+
+//ini name
+globalvar INI;
+INI = "OnTime.ini"
+
+//read speed
+ini_open(INI)
+sp = ini_read_real("game", "speed", 4)
+ini_close()
 </string>
           </argument>
         </arguments>

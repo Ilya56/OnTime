@@ -32,19 +32,13 @@ state = 0
 //sprite size
 ssize = 64
 
-//ini name
-globalvar INI;
-INI = "OnTime.ini"
-
 //level
 ini_open(INI)
 level = ini_read_real("game", "level", 1)
 ini_close()
-level_max = 5
 
 //path
 path = level - 1
-sp = 4
 
 //wait for start
 alarm[0] = room_speed
@@ -68,7 +62,7 @@ for(var i = 0; i &lt; path_get_number(path); i++)
 //goal
 var w = xmax - xmin - 140 // 140 for draw path with wall (look in draw event)
 goal = irandom(w / 3) + w * 2 / 3 - attempt * w / 150
-gsize = ssize * 1.2 + sp * 2 + attempt / 3
+gsize = ssize + sp * 2 + attempt / 3
 
 //if win 
 win = false
@@ -120,10 +114,10 @@ state = 1
           <argument>
             <kind>1</kind>
             <string>///LOSE OR WIN
-if state &gt;= 1 &amp;&amp; state &lt;= 2
+if state &gt;= 1 &amp;&amp; state &lt;= 2 &amp;&amp; !pause
 {
     state = 3
-    if attempt &lt; 50
+    if attempt &lt; 60
         attempt++
     path_end()
     
@@ -162,9 +156,12 @@ if state &gt;= 1 &amp;&amp; state &lt;= 2
           <argument>
             <kind>1</kind>
             <string>///RESTART LEVEL &amp; ADD ATTEMPTS
-state = 3
-if attempt &lt; 50
-    attempt++
+if !pause &amp;&amp; state == 2
+{
+    state = 3
+    if attempt &lt; 60
+        attempt++
+}
 </string>
           </argument>
         </arguments>
