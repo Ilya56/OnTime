@@ -16,6 +16,8 @@
     <path>paths\path2</path>
     <path>paths\path3</path>
     <path>paths\path4</path>
+    <path>paths\path5</path>
+    <path>paths\path6</path>
   </paths>
   <fonts name="fonts">
     <font>fonts\fnt_level</font>

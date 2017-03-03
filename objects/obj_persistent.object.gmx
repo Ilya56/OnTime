@@ -25,10 +25,19 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>globalvar attempt, pause, sp;
+            <string>globalvar attempt, pause, sp, level_max;
 attempt = 0
 pause = false
-sp = 4
+level_max = 7
+
+//ini name
+globalvar INI;
+INI = "OnTime.ini"
+
+//read speed
+ini_open(INI)
+sp = ini_read_real("game", "speed", 4)
+ini_close()
 </string>
           </argument>
         </arguments>

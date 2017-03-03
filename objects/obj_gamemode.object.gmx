@@ -27,7 +27,9 @@
             <kind>1</kind>
             <string>///INIT VARS
 //speed max
-sp_max = 8
+sp_max = 30
+//real max speed
+sp_max-- 
 
 //draw settings
 draw = false
@@ -56,8 +58,13 @@ path = -1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if mouse_x &gt;= 60 &amp;&amp; mouse_y &gt;= room_height * 2 / 3 - 12 &amp;&amp; mouse_x &lt;= room_width - 60 &amp;&amp; mouse_y &lt;= room_height * 2 / 3 + 8
-    sp = round((mouse_x - 60) / (room_width - 120) * sp_max)
+            <string>if pause &amp;&amp; mouse_x &gt;= 60 &amp;&amp; mouse_y &gt;= room_height * 2 / 3 - 12 &amp;&amp; mouse_x &lt;= room_width - 60 &amp;&amp; mouse_y &lt;= room_height * 2 / 3 + 8
+{
+    sp = round((mouse_x - 60) / (room_width - 120) * sp_max) + 1
+    ini_open(INI)
+    ini_write_real("game", "speed", sp)
+    ini_close()
+}
 </string>
           </argument>
         </arguments>
@@ -138,8 +145,8 @@ if pause
     draw_set_color(c_ltgray)
     draw_rectangle(50, room_height * 2 / 3 - 4, room_width - 50, room_height * 2 / 3, false)
     draw_set_color(c_dkgray)
-    draw_circle(50 + sp * (room_width - 100) / sp_max, room_height * 2 / 3 - 2, 10, false)
-    draw_text(50 + sp * (room_width - 100) / sp_max, room_height * 2 / 3, string(sp))
+    draw_circle(50 + (sp - 1) * (room_width - 100) / sp_max, room_height * 2 / 3 - 2, 10, false)
+    draw_text(50 + (sp - 1) * (room_width - 100) / sp_max, room_height * 2 / 3, string(sp))
 }
 
 draw_self()
