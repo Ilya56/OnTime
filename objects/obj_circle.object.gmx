@@ -161,7 +161,7 @@ if state &gt;= 1 &amp;&amp; state &lt;= 2 &amp;&amp; !pause
           <argument>
             <kind>1</kind>
             <string>///RESTART LEVEL &amp; ADD ATTEMPTS
-if !pause
+if !pause &amp;&amp; state == 2
 {
     state = 3
     if attempt &lt; 50

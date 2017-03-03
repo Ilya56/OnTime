@@ -26,9 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///INIT VARS
-//speed
-globalvar sp;
-sp = 4
+//speed max
 sp_max = 8
 
 //draw settings
@@ -36,6 +34,30 @@ draw = false
 
 //temp path
 path = -1
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="50">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if mouse_x &gt;= 60 &amp;&amp; mouse_y &gt;= room_height * 2 / 3 - 12 &amp;&amp; mouse_x &lt;= room_width - 60 &amp;&amp; mouse_y &lt;= room_height * 2 / 3 + 8
+    sp = round((mouse_x - 60) / (room_width - 120) * sp_max)
 </string>
           </argument>
         </arguments>
@@ -69,8 +91,10 @@ else
     with instance_find(obj_circle, 0)
     {
         pause = true
+        state = 2
         path_end()
         state = 2
+        alarm[0] = -1
     }
 }
 </string>
@@ -114,7 +138,7 @@ if pause
     draw_set_color(c_ltgray)
     draw_rectangle(50, room_height * 2 / 3 - 4, room_width - 50, room_height * 2 / 3, false)
     draw_set_color(c_dkgray)
-    draw_circle(50 + sp * (room_width - 100) / sp_max, room_height * 2 / 3 - 2, 5, false)
+    draw_circle(50 + sp * (room_width - 100) / sp_max, room_height * 2 / 3 - 2, 10, false)
     draw_text(50 + sp * (room_width - 100) / sp_max, room_height * 2 / 3, string(sp))
 }
 
@@ -136,5 +160,8 @@ draw_self()
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>16,16</point>
+    <point>16,16</point>
+  </PhysicsShapePoints>
 </object>
